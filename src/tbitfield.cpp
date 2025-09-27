@@ -121,23 +121,19 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 // битовые операции
 
-TBitField& TBitField::operator=(const TBitField &bf) // присваивание
+TBitField& TBitField::operator=(const TBitField &bf)
 {
-    if (*this != bf)
-    {
-        MemLen = bf.MemLen;
-        BitLen = bf.BitLen;
-        delete[] pMem;
-        pMem = new int[MemLen];
-        for (int i = 0; i < MemLen; i++)
-        {
-            pMem[i] = bf.pMem[i];
-        }
-    }
-    else
-    {
+    if (this == &bf)
         return *this;
-    }
+       
+    delete[] pMem;
+    BitLen = bf.BitLen;
+    MemLen = bf.MemLen;
+    pMem = new int[MemLen];
+    for (int i = 0; i < MemLen; i++)
+        pMem[i] = bf.pMem[i];
+    
+    return *this;  
 }
 
 int TBitField::operator==(const TBitField &bf) const // сравнение
